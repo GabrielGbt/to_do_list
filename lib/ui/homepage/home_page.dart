@@ -14,29 +14,73 @@ class HomePage extends GetView<HomePageController> {
         title: const Text('list'),
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.black,
         onPressed: () {
-          Get.toNamed('/addp');
+          Get.toNamed('/add');
         },
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blueAccent.withOpacity(0.8),
         child: const Icon(Icons.add), // Background color of the FAB
       ),
-      body: const Center(),
-      /* Obx(
+      body: Obx(
         () => ListView.builder(
-          itemCount: controller.taskList.length,
-          itemBuilder: (context, index) => Card(
-            color: Colors.black,
-            child: ListTile(
-              title: Text(controller.taskList[index].title!
-                  .substring(0, 1)
-                  .capitalize!),
-              subtitle: Text(controller.taskList[index].description!
-                  .substring(0, 1)
-                  .capitalize!),
-            ),
-          ),
-        ),
-      ), */
+            itemCount: controller.taskList.length,
+            itemBuilder: (context, index) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    children: [
+                      Dismissible(
+                        background: Container(
+                          color: Colors.red,
+                          child: const Align(
+                            alignment: Alignment(0.9, 0),
+                            child: Icon(Icons.delete_forever_outlined),
+                          ),
+                        ),
+                        key: Key('${controller.taskList[index].id}'),
+                        onDismissed: (direction) {
+                          controller
+                              .deleteTask('${controller.taskList[index].id}');
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: Get.width,
+                              child: ElevatedButton(
+                                style: const ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStatePropertyAll(Colors.black)),
+                                onPressed: null,
+                                child: ListTile(
+                                  title: Text(
+                                    controller.taskList[index].title ?? ' ',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  subtitle: Text(
+                                    controller.taskList[index].description ??
+                                        ' ',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                ],
+              );
+            }),
+      ),
     );
   }
 }

@@ -8,6 +8,9 @@ class AddController extends GetxController {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
 
+  RxString textValue = ''.obs;
+  RxString textValue1 = ''.obs;
+
   ButtonStyle style = ElevatedButton.styleFrom(backgroundColor: Colors.black);
 
   Future newTask({required task}) async {

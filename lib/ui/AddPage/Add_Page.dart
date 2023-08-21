@@ -22,9 +22,12 @@ class AddPage extends GetView<AddController> {
             children: [
               const Text('Challenge yourself'),
               const SizedBox(
-                height: 60,
+                height: 45,
               ),
               TextField(
+                onChanged: (value) {
+                  controller.textValue.value = value;
+                },
                 controller: controller.titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -35,6 +38,9 @@ class AddPage extends GetView<AddController> {
                 height: 20,
               ),
               TextField(
+                onChanged: (value) {
+                  controller.textValue1.value = value;
+                },
                 controller: controller.descrController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -44,17 +50,26 @@ class AddPage extends GetView<AddController> {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                style: controller.style,
-                child: const Text('Create'),
-                onPressed: () {
-                  final task = TaskModel(
-                    title: controller.titleController.text,
-                    description: controller.descrController.text,
-                  );
-                  controller.newTask(task: task);
-                },
-              ),
+              Obx(() {
+                final isEmpty = controller.textValue.isEmpty;
+                final isEmpty1 = controller.textValue1.isEmpty;
+                return ElevatedButton(
+                  style: controller.style,
+                  child: const Text('Create'),
+                  onPressed: () {
+                    if (isEmpty && isEmpty1) {
+                      Null;
+                    } else {
+                      final task = TaskModel(
+                        title: controller.titleController.text,
+                        description: controller.descrController.text,
+                      );
+                      controller.newTask(task: task);
+                      Get.offAllNamed('/');
+                    }
+                  },
+                );
+              })
             ],
           ),
         ),

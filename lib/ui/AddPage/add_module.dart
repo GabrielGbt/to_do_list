@@ -9,7 +9,7 @@ class AddModule implements Module {
   @override
   List<GetPage> routers = [
     GetPage(
-      name: '/addp',
+      name: '/add',
       page: () => const AddPage(),
       binding: AddBindings(),
     )

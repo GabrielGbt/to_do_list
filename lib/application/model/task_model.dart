@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class TaskModel {
   String? id;
   String? title;
@@ -16,15 +14,9 @@ class TaskModel {
         'description': description,
       };
 
-  /* static TaskModel fromJson(Map<String, dynamic> json) => TaskModel(
+  static TaskModel fromJson(Map<String, dynamic> json) => TaskModel(
         id: json['id'],
         title: json['title'],
         description: json['description'],
-      ); */
-
-  /* TaskModel.fromJson(DocumentSnapshot data) {
-    id = data.id;
-    title = data["title"];
-    description = data["description"];
-  } */
+      );
 }
